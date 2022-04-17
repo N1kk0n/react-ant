@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./styles/App.css";
+import MainPage from "./components/MainPage.js";
+import LoginPage from "./components/LoginPage.js";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [accessGranted, setAccess] = useState(true);
+	const checkAccess = (username, password) => {
+		//! TODO: check access
+		console.log("username: " + username + ", password: " + password);
+		setAccess(true);
+	};
+	const logout = () => {
+		setAccess(false);
+	};
+	return (
+		<div>
+			{accessGranted ? (
+				<MainPage logout={logout} />
+			) : (
+				<LoginPage check={checkAccess} />
+			)}
+		</div>
+	);
 }
 
 export default App;

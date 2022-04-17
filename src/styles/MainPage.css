@@ -1,0 +1,23 @@
+.trigger {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	padding: 0 32px;
+	font-size: 18px;
+	cursor: pointer;
+	transition: color 0.3s;
+	color: #fff;
+}
+
+.trigger:hover {
+	color: #1890ff;
+}
+
+.site-layout .site-layout-background {
+	background: #fff;
+}
+
+.content-title {
+	margin-left: 15px;
+}
