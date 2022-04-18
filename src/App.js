@@ -14,7 +14,7 @@ const App = () => {
 		setAccess(false);
 	};
 	return (
-		<div>
+		<div className="wrapper">
 			{accessGranted ? (
 				<MainPage logout={logout} />
 			) : (
