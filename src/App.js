@@ -3,7 +3,7 @@ import "./styles/App.css";
 import MainPage from "./components/MainPage.js";
 import LoginPage from "./components/LoginPage.js";
 
-function App() {
+const App = () => {
 	const [accessGranted, setAccess] = useState(true);
 	const checkAccess = (username, password) => {
 		//! TODO: check access
@@ -22,6 +22,6 @@ function App() {
 			)}
 		</div>
 	);
-}
+};
 
 export default App;

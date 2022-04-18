@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "../styles/MainPage.css";
 import { Layout, Menu } from "antd";
@@ -33,20 +33,12 @@ const getMenuIcon = (value) => {
 	}
 };
 
-class MainPage extends React.Component {
-	state = {
-		collapsed: true,
-		activeMenuItem: "request-list",
-		contentTitle: "Список заявок",
-	};
+const MainPage = () => {
+	const [menuOpened, setMenuOpen] = useState(false);
+	const [activeMenuItem, setActiveMenuItem] = useState("request-list");
+	const [contentTitle, setContentTitle] = useState("Список заявок");
 
-	toggle = () => {
-		this.setState({
-			collapsed: !this.state.collapsed,
-		});
-	};
-
-	setMenuItem = (item) => {
+	const setMenuTitle = (item) => {
 		let title = "";
 		if (item === "new-request") {
 			title = "Поле новой заявки";
@@ -54,84 +46,65 @@ class MainPage extends React.Component {
 		if (item === "request-list") {
 			title = "Список заявок";
 		}
-
-		this.setState({
-			activeMenuItem: item,
-			contentTitle: title,
-		});
+		setActiveMenuItem(item);
+		setContentTitle(title);
 	};
 
-	setContentTitle = (title) => {
-		this.setState({});
-	};
-
-	setContent = () => {
+	const setContent = () => {
 		// ! TODO: get content using axios
-		if (this.state.activeMenuItem === "new-request") {
+		if (activeMenuItem === "new-request") {
 			console.log("new-request");
 			return <h2>Поле новой заявки</h2>;
 		}
-		if (this.state.activeMenuItem === "request-list") {
+		if (activeMenuItem === "request-list") {
 			console.log("request-list");
 			return <h2>Список заявок</h2>;
 		}
 	};
 
-	render() {
-		return (
-			<Layout className="page">
-				<Sider
-					trigger={null}
-					collapsible
-					collapsed={this.state.collapsed}
-				>
-					{React.createElement(
-						this.state.collapsed ? RightOutlined : LeftOutlined,
-						{
-							className: "trigger",
-							onClick: this.toggle,
-						}
-					)}
+	return (
+		<Layout className="page">
+			<Sider trigger={null} collapsible collapsed={menuOpened}>
+				{React.createElement(
+					this.state.collapsed ? RightOutlined : LeftOutlined,
+					{
+						className: "trigger",
+						onClick: setMenuOpen(!menuOpened),
+					}
+				)}
 
-					<Menu
-						theme="dark"
-						mode="inline"
-						defaultSelectedKeys={["1"]}
-					>
-						{menuItems.map((item) => (
-							<Menu.Item
-								key={item.id}
-								icon={getMenuIcon(item.value)}
-								onClick={() => this.setMenuItem(item.value)}
-							>
-								{item.text}
-							</Menu.Item>
-						))}
-					</Menu>
-				</Sider>
-				<Layout className="site-layout">
-					<Header
-						className="site-layout-background"
-						style={{ padding: 0 }}
-					>
-						<h2 className="content-title">
-							{this.state.contentTitle}
-						</h2>
-					</Header>
-					<Content
-						className="site-layout-background"
-						style={{
-							margin: "24px 16px",
-							padding: 24,
-							minHeight: 280,
-						}}
-					>
-						{this.setContent()}
-					</Content>
-				</Layout>
+				<Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+					{menuItems.map((item) => (
+						<Menu.Item
+							key={item.id}
+							icon={getMenuIcon(item.value)}
+							onClick={() => setMenuTitle(item.value)}
+						>
+							{item.text}
+						</Menu.Item>
+					))}
+				</Menu>
+			</Sider>
+			<Layout className="site-layout">
+				<Header
+					className="site-layout-background"
+					style={{ padding: 0 }}
+				>
+					<h2 className="content-title">{contentTitle}</h2>
+				</Header>
+				<Content
+					className="site-layout-background"
+					style={{
+						margin: "24px 16px",
+						padding: 24,
+						minHeight: 280,
+					}}
+				>
+					{setContent()}
+				</Content>
 			</Layout>
-		);
-	}
-}
+		</Layout>
+	);
+};
 
 export default MainPage;
