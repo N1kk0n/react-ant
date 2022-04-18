@@ -63,7 +63,7 @@ const MainPage = () => {
 	};
 
 	return (
-		<Layout className="page">
+		<Layout>
 			<Sider trigger={null} collapsible collapsed={menuOpened}>
 				{React.createElement(
 					this.state.collapsed ? RightOutlined : LeftOutlined,
