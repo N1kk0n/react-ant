@@ -11,6 +11,7 @@ import {
 	LogoutOutlined,
 	OrderedListOutlined,
 } from "@ant-design/icons";
+import TablePage from "./TablePage";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -51,12 +52,11 @@ const MainPage = (props) => {
 	};
 
 	const setContent = () => {
-		// ! TODO: get content using axios
 		if (activeMenuItem === "new-request") {
 			return <h2>Поле новой заявки</h2>;
 		}
 		if (activeMenuItem === "request-list") {
-			return <h2>Список заявок</h2>;
+			return <TablePage />;
 		}
 	};
 
@@ -91,7 +91,11 @@ const MainPage = (props) => {
 					<div className="header">
 						<div className="header-title">{contentTitle}</div>
 						<div className="header-buttons">
-							<Menu mode="horizontal" selectedKeys={[]}>
+							<Menu
+								mode="horizontal"
+								disabledOverflow
+								selectedKeys={[]}
+							>
 								<Menu.Item
 									key="button"
 									icon={<CommentOutlined />}
