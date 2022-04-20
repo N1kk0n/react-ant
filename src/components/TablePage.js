@@ -31,32 +31,28 @@ const columns = [
 const TablePage = () => {
 	const [data, setData] = useState([]);
 	const [buttonDisabled, disableButton] = useState(true);
+	const [selectedRow, selectRow] = useState(-1);
 	const [loading, setLoading] = useState(false);
 	const [pagination, setPagination] = useState({
 		current: 1,
-		pageSize: 10,
+		pageSize: 4,
 		hideOnSinglePage: true,
 	});
 
 	const rowSelection = {
 		onChange: (selectedRowKeys, selectedRows) => {
-			console.log(
-				`selectedRowKeys: ${selectedRowKeys}`,
-				"selectedRows: ",
-				selectedRows
-			);
+			let row = selectedRows[0];
+			selectRow(row.id);
 			disableButton(false);
 		},
 	};
 
 	const confirmDelete = (e) => {
-		console.log(e);
-		message.success("Deleted");
-	};
+		setData(data.filter((d) => d.id !== selectedRow));
+		//! TODO: delete data using axios
 
-	const cancelDelete = (e) => {
-		console.log(e);
-		message.error("Canceled");
+		message.success("Deleted row: " + selectedRow);
+		selectRow(-1);
 	};
 
 	async function axiosData(pageNumber) {
@@ -97,7 +93,6 @@ const TablePage = () => {
 					okButtonProps={{ danger: "true", size: "middle" }}
 					onConfirm={confirmDelete}
 					cancelButtonProps={{ size: "middle" }}
-					onCancel={cancelDelete}
 					okText="Yes"
 					cancelText="No"
 				>
