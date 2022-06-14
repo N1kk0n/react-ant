@@ -5,43 +5,41 @@ import { Layout, Menu } from "antd";
 import {
 	LeftOutlined,
 	RightOutlined,
-	EditOutlined,
-	CommentOutlined,
-	SettingOutlined,
+	CopyrightOutlined,
+	FileSearchOutlined,
 	LogoutOutlined,
-	OrderedListOutlined,
 } from "@ant-design/icons";
-import TablePage from "./TablePage";
+import CheckDocPage from "./CheckDocPage";
+import ClassifyDocPage from "./ClassifyDocPage";
 
 const { Header, Sider, Content } = Layout;
-const { SubMenu } = Menu;
 
 const menuItems = [
 	{
 		id: 1,
-		text: "Список заявок",
-		value: "request-list",
+		text: "Проверка документа",
+		value: "doc-check",
 	},
 	{
 		id: 2,
-		text: "Новая заявка",
-		value: "new-request",
+		text: "Классификация документа",
+		value: "doc-classify",
 	},
 ];
 
 const getMenuIcon = (value) => {
-	if (value === "new-request") {
-		return <EditOutlined />;
+	if (value === "doc-check") {
+		return <CopyrightOutlined />;
 	}
-	if (value === "request-list") {
-		return <OrderedListOutlined />;
+	if (value === "doc-classify") {
+		return <FileSearchOutlined />;
 	}
 };
 
 const MainPage = (props) => {
 	const [menuOpened, setMenuOpen] = useState(false);
-	const [activeMenuItem, setActiveMenuItem] = useState("request-list");
-	const [contentTitle, setContentTitle] = useState("Список заявок");
+	const [activeMenuItem, setActiveMenuItem] = useState("doc-check");
+	const [contentTitle, setContentTitle] = useState("Проверка документа");
 
 	const openMenu = () => {
 		setMenuOpen(true);
@@ -52,17 +50,22 @@ const MainPage = (props) => {
 	};
 
 	const setContent = () => {
-		if (activeMenuItem === "new-request") {
-			return <h2>Поле новой заявки</h2>;
+		if (activeMenuItem === "doc-check") {
+			return <CheckDocPage />;
 		}
-		if (activeMenuItem === "request-list") {
-			return <TablePage />;
+		if (activeMenuItem === "doc-classify") {
+			return <ClassifyDocPage />;
 		}
 	};
 
 	return (
 		<Layout className="page">
-			<Sider trigger={null} collapsible collapsed={!menuOpened}>
+			<Sider
+				trigger={null}
+				collapsible
+				width={250}
+				collapsed={!menuOpened}
+			>
 				{menuOpened ? (
 					<LeftOutlined className="trigger" onClick={closeMenu} />
 				) : (
@@ -91,39 +94,11 @@ const MainPage = (props) => {
 					<div className="header">
 						<div className="header-title">{contentTitle}</div>
 						<div className="header-buttons">
-							<Menu
+							{/* <Menu
 								mode="horizontal"
 								disabledOverflow
 								selectedKeys={[]}
 							>
-								<Menu.Item
-									key="button"
-									icon={<CommentOutlined />}
-								>
-									Button
-								</Menu.Item>
-								<SubMenu
-									key="submenu"
-									icon={<SettingOutlined />}
-									title="Submenu"
-								>
-									<Menu.ItemGroup title="Item 1">
-										<Menu.Item key="setting:1">
-											Option 1
-										</Menu.Item>
-										<Menu.Item key="setting:2">
-											Option 2
-										</Menu.Item>
-									</Menu.ItemGroup>
-									<Menu.ItemGroup title="Item 2">
-										<Menu.Item key="setting:3">
-											Option 3
-										</Menu.Item>
-										<Menu.Item key="setting:4">
-											Option 4
-										</Menu.Item>
-									</Menu.ItemGroup>
-								</SubMenu>
 								<Menu.Item
 									key="logout"
 									icon={<LogoutOutlined />}
@@ -133,15 +108,15 @@ const MainPage = (props) => {
 								>
 									Выход
 								</Menu.Item>
-							</Menu>
+							</Menu> */}
 						</div>
 					</div>
 				</Header>
 				<Content
 					className="site-layout-background"
 					style={{
-						margin: "24px 16px",
-						padding: 24,
+						margin: "16px 16px",
+						padding: 16,
 						minHeight: 280,
 					}}
 				>

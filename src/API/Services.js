@@ -1,16 +1,14 @@
 import axios from "axios";
 
 export default class Services {
-	static async getUsers(limit, page) {
-		const response = await axios.get(
-			"https://jsonplaceholder.typicode.com/users",
-			{
-				params: {
-					_limit: limit,
-					_page: page,
-				},
-			}
-		);
+	static async getDocuments(limit, page) {
+		const response = await axios.get("https://reqres.in/api/unknown", {
+			params: {
+				per_page: limit,
+				page: page,
+			},
+		});
+		console.log(response);
 		return response;
 	}
 }

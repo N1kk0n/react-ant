@@ -1,0 +1,15 @@
+.buttons-area {
+	display: flex;
+	justify-content: space-between;
+}
+
+.text-area {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+
+.table-area {
+	margin-top: 15px;
+	text-align: center;
+}
